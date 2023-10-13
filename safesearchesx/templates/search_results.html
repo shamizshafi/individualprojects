@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Search Results</h1>
+    </header>
+    <ul class="result-list">
+        {% for result in search_results %}
+            <li>
+                <a href="{{ url_for('results', url=result.link) }}">{{ result.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a class="back-link" href="{{ url_for('index') }}">Go back</a>
+</body>
+</html>

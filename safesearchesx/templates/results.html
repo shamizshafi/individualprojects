@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Safety Check Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .proceed-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .proceed-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Results for {{ url }}</h1>
+    </header>
+    <div class="results-container">
+        <p>Safe Browsing: <strong>{{ "Safe" if is_safe else "Unsafe" }}</strong></p>
+        {% if is_safe %}
+            <p style="color: green; font-weight: bold;">This website is considered safe.</p>
+        {% else %}
+            <p style="color: red; font-weight: bold;">This website is considered unsafe.</p>
+        {% endif %}
+        <p>SSL Certificate: <strong>{{ "Present" if has_ssl else "Not present" }}</strong></p>
+        {% if has_ssl %}
+            <p style="color: green; font-weight: bold;">This website has a valid SSL certificate.</p>
+        {% else %}
+            <p style="color: red; font-weight: bold;">This website does not have a valid SSL certificate.</p>
+        {% endif %}
+        <p>Website Speed Score: <strong>{{ speed_score if speed_score else "Not available" }}</strong></p>
+        <p>Server IP: <strong>{{ ip_address }}</strong></p>
+    
+    <pre>
+{{ domain_info }}
+</pre>
+    </div>
+    {% if is_safe %}
+    <button class="proceed-btn" onclick="window.open('{{ url }}', '_blank')">Proceed to website safely</button>
+    {% endif %}
+    <a class="back-link" href="{{ url_for('index') }}">Go back</a>
+    
+    
+</body>
+</html>
